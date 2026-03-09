@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bài tập Lập Trình – Vận tốc Quãng đường</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6fb;
+            margin: 40px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .problem {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #1e6bd6;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #00ff9c;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .example {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Bài tập Lập Trình Thi Đấu – Chủ đề Vận tốc</h1>
+
+    <div class="problem">
+        <h2>Bài 1 – Tính quãng đường</h2>
+        <p>Một xe đạp đi với vận tốc 12 km/h trong 3 giờ. Hỏi đi được bao nhiêu km?</p>
+        <b>Input:</b> v t
+        <pre>
+12 3
+</pre>
+        <b>Output:</b>
+        <pre>
+36
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 2 – Tính vận tốc</h2>
+        <p>Một bạn đi bộ được 10 km trong 2 giờ. Tính vận tốc trung bình.</p>
+        <b>Input:</b> S t
+        <pre>
+10 2
+</pre>
+        <b>Output:</b>
+        <pre>
+5
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 3 – Tính thời gian</h2>
+        <p>Một ô tô đi 90 km với vận tốc 45 km/h. Hỏi đi hết bao lâu?</p>
+        <b>Input</b>
+        <pre>
+90 45
+</pre>
+        <b>Output</b>
+        <pre>
+2
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 4 – Đổi phút sang giờ</h2>
+        <p>Một bạn chạy với vận tốc 6 km/h trong 30 phút. Hỏi chạy được bao nhiêu km?</p>
+        <pre>
+Input
+6 30
+</pre>
+        <pre>
+Output
+3
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 5 – Hai chặng đường</h2>
+        <p>Một xe máy đi 20 km trong 1 giờ, sau đó đi tiếp 30 km trong 2 giờ.</p>
+        <p>Hãy tính:</p>
+        <ul>
+            <li>Tổng quãng đường</li>
+            <li>Tổng thời gian</li>
+            <li>Vận tốc trung bình</li>
+        </ul>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 6 – So sánh vận tốc</h2>
+        <p>
+            A: 12 km trong 2 giờ <br>
+            B: 15 km trong 3 giờ
+        </p>
+        <p>In ra:</p>
+        <ul>
+            <li>A>B nếu A nhanh hơn</li>
+            <li>B>A nếu B nhanh hơn</li>
+            <li>A=B nếu bằng nhau</li>
+        </ul>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 7 – Tổng thời gian đến trường</h2>
+        <p>
+            Đi bộ 2 km với 4 km/h <br>
+            Sau đó đi xe đạp 6 km với 12 km/h
+        </p>
+        <p>Hãy tính tổng thời gian đi học.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 8 – Tính tiền taxi</h2>
+        <p>
+            Taxi chạy 40 km/h. <br>
+            Giá 12000đ/km. <br>
+            Đi trong 30 phút.
+        </p>
+        <p>Tính tiền.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 9 – Hai xe đi ngược chiều</h2>
+        <p>
+            Khoảng cách 90 km <br>
+            v1 = 40 km/h <br>
+            v2 = 50 km/h
+        </p>
+        <p>Hỏi bao lâu gặp nhau?</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 10 – Tổng quãng đường</h2>
+        <p>Một xe đi qua n chặng.</p>
+        <pre>
+Input
+4
+10 1
+20 2
+30 1
+40 1
+</pre>
+        <pre>
+Output
+120
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 11 – Người chạy nhanh nhất</h2>
+        <p>Có n bạn thi chạy.</p>
+        <pre>
+Input
+3
+10 2
+15 2
+9 1
+</pre>
+        <pre>
+Output
+3
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 12 – Đến sớm hay trễ</h2>
+        <pre>
+Input
+60 2 40
+</pre>
+        <pre>
+Output
+Som
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 13 – Thời gian nhanh nhất</h2>
+        <pre>
+Input
+60 5 15 30
+</pre>
+        <pre>
+Output
+2.00
+</pre>
+    </div>
+
+    <hr>
+
+    <h1>Bài tập thêm</h1>
+
+    <div class="problem">
+        <h2>Bài 14 – Tổng thời gian di chuyển</h2>
+        <p>Một người đi 3 chặng:</p>
+        <ul>
+            <li>10 km với 10 km/h</li>
+            <li>20 km với 20 km/h</li>
+            <li>15 km với 15 km/h</li>
+        </ul>
+        <p>Hãy tính tổng thời gian.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 15 – Quãng đường còn lại</h2>
+        <p>Một người cần đi tổng S km.</p>
+        <p>Đã đi được v km/h trong t giờ.</p>
+        <p>Hãy tính quãng đường còn lại.</p>
+        <pre>
+Input
+S v t
+</pre>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 16 – Vận tốc trung bình</h2>
+        <p>Một người đi:</p>
+        <ul>
+            <li>20 km với 10 km/h</li>
+            <li>30 km với 15 km/h</li>
+        </ul>
+        <p>Hãy tính vận tốc trung bình.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 17 – Xe nào đến trước</h2>
+        <p>
+            Xe A đi quãng đường S với vận tốc v1. <br>
+            Xe B đi quãng đường S với vận tốc v2.
+        </p>
+        <p>In ra xe đến trước.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 18 – Tổng tiền xăng</h2>
+        <p>Mỗi km xe tốn 2000đ tiền xăng.</p>
+        <p>Một người đi S km.</p>
+        <p>Tính tiền xăng.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 19 – Tính thời gian còn lại</h2>
+        <p>Một người cần đi S km trong T giờ.</p>
+        <p>Đã đi được s km.</p>
+        <p>Vận tốc hiện tại là v.</p>
+        <p>Hỏi còn bao lâu đến nơi.</p>
+    </div>
+
+    <div class="problem">
+        <h2>Bài 20 – Tổng vận tốc trung bình</h2>
+        <p>Có n chuyến đi.</p>
+        <p>Mỗi chuyến có quãng đường S và thời gian t.</p>
+        <p>Hãy tính vận tốc trung bình của toàn bộ chuyến đi.</p>
+
+        <pre>
+Input
+n
+S t
+S t
+...
+</pre>
+
+    </div>
+
+</body>
+
+</html>

@@ -3,34 +3,48 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Bài tập Lập Trình – Chủ đề Vận tốc</title>
+    <title>20 Bài Lập Trình Thi Đấu – Chủ đề Vận tốc</title>
 
     <style>
         body {
-            font-family: Arial;
-            background: #f4f6fb;
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
             margin: 40px;
+            line-height: 1.6;
         }
 
         h1 {
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
         }
 
         .problem {
             background: white;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        h2 {
+        .problem h2 {
+            cursor: pointer;
             color: #1e6bd6;
         }
 
         .section {
-            margin-top: 10px;
             font-weight: bold;
+            margin-top: 10px;
         }
 
         pre {
@@ -38,514 +52,461 @@
             color: #00ff9c;
             padding: 12px;
             border-radius: 6px;
-            margin-top: 5px;
+        }
+
+        .formula {
+            background: #f4f8ff;
+            border-left: 5px solid #1e6bd6;
+            padding: 10px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .sample {
+            display: none;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            background: #1e6bd6;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #144fa0;
         }
     </style>
+
 </head>
 
 <body>
 
-    <h1>Bài tập Lập Trình Thi Đấu – Chủ đề Vận tốc</h1>
+    <h1>20 Bài Lập Trình Thi Đấu – Chủ đề Vận tốc</h1>
 
-    <!-- Bài 1 -->
-    <div class="problem">
-        <h2>Bài 1 – Tính quãng đường</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Một xe đi với vận tốc <b>v</b> km/h trong <b>t</b> giờ. Hãy tính quãng đường <b>S</b>.</p>
-
-        <div class="section">Input</div>
-        <pre>v t</pre>
-
-        <div class="section">Output</div>
-        <pre>S</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>12 3</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>36</pre>
+    <div class="search">
+        <input id="searchBox" placeholder="Tìm bài..." onkeyup="searchProblem()">
     </div>
 
+    <div id="container"></div>
+
+    <script>
+
+        const problems = [
+
+            {
+                title: "Bài 1 – Tính quãng đường",
+                desc: `Một chiếc xe đang di chuyển trên đường thẳng.
+
+Xe chạy với vận tốc v kilomet mỗi giờ (km/h). 
+Điều này có nghĩa là trong 1 giờ chiếc xe sẽ đi được v kilomet.
+
+Chiếc xe chạy liên tục trong t giờ.
+
+Hãy viết chương trình tính quãng đường S mà chiếc xe đi được sau t giờ di chuyển.`,
+                formula: "S = v × t",
+                input: "v t",
+                output: "S",
+                sampleIn: "10 3",
+                sampleOut: "30"
+            },
+
+            {
+                title: "Bài 2 – Tính vận tốc",
+                desc: `Một chiếc xe đi từ thành phố A đến thành phố B.
+
+Tổng quãng đường xe đi được là S kilomet.
+Xe hoàn thành chuyến đi trong t giờ.
+
+Vận tốc cho biết trong 1 giờ xe đi được bao nhiêu kilomet.
+
+Hãy tính vận tốc trung bình v của chiếc xe.`,
+                formula: "v = S / t",
+                input: "S t",
+                output: "v",
+                sampleIn: "60 3",
+                sampleOut: "20"
+            },
+
+            {
+                title: "Bài 3 – Tính thời gian",
+                desc: `Một chiếc xe cần đi quãng đường S kilomet.
+
+Xe chạy với vận tốc v kilomet mỗi giờ.
+
+Hãy tính xem chiếc xe cần bao nhiêu giờ để đi hết quãng đường đó.`,
+                formula: "t = S / v",
+                input: "S v",
+                output: "t",
+                sampleIn: "120 60",
+                sampleOut: "2"
+            },
+
+            {
+                title: "Bài 4 – Quãng đường theo phút",
+                desc: `Một chiếc xe chạy với vận tốc v km/h.
+
+Tuy nhiên xe chỉ chạy trong m phút thay vì chạy theo giờ.
+
+Biết rằng:
+1 giờ = 60 phút.
+
+Hãy tính quãng đường S mà xe đi được.`,
+                formula: "S = v × (m / 60)",
+                input: "v m",
+                output: "S",
+                sampleIn: "60 30",
+                sampleOut: "30"
+            },
+
+            {
+                title: "Bài 5 – Tổng quãng đường",
+                desc: `Một người đi du lịch qua hai chặng đường.
+
+Chặng thứ nhất người đó đi được S1 kilomet.
+Chặng thứ hai người đó đi thêm S2 kilomet.
+
+Hãy tính tổng quãng đường S mà người đó đã đi.`,
+                formula: "S = S1 + S2",
+                input: "S1 S2",
+                output: "S",
+                sampleIn: "20 30",
+                sampleOut: "50"
+            },
+
+            {
+                title: "Bài 6 – Tổng thời gian",
+                desc: `Một người di chuyển qua hai chặng đường khác nhau.
+
+Chặng thứ nhất mất t1 giờ.
+Chặng thứ hai mất t2 giờ.
+
+Hãy tính tổng thời gian di chuyển của người đó.`,
+                formula: "t = t1 + t2",
+                input: "t1 t2",
+                output: "t",
+                sampleIn: "2 3",
+                sampleOut: "5"
+            },
+
+            {
+                title: "Bài 7 – Xe chạy hai giai đoạn",
+                desc: `Một chiếc xe chạy trong hai giai đoạn.
+
+Giai đoạn 1:
+Xe chạy với vận tốc v1 km/h trong t1 giờ.
+
+Giai đoạn 2:
+Xe chạy với vận tốc v2 km/h trong t2 giờ.
+
+Hãy tính tổng quãng đường S mà chiếc xe đã đi.`,
+                formula: "S = v1*t1 + v2*t2",
+                input: "v1 t1 / v2 t2",
+                output: "S",
+                sampleIn: "10 2 | 20 3",
+                sampleOut: "80"
+            },
+
+            {
+                title: "Bài 8 – So sánh vận tốc",
+                desc: `Có hai người A và B cùng chạy bộ.
+
+Người A chạy được S1 kilomet trong t1 giờ.
+Người B chạy được S2 kilomet trong t2 giờ.
+
+Hãy tính vận tốc của mỗi người và cho biết ai chạy nhanh hơn.
+
+Nếu vận tốc của A lớn hơn B in ra A>B.
+Nếu vận tốc của B lớn hơn A in ra B>A.
+Nếu hai người chạy nhanh như nhau in ra A=B.`,
+                formula: "v = S / t",
+                input: "S1 t1 / S2 t2",
+                output: "A>B, B>A hoặc A=B",
+                sampleIn: "10 2 | 12 3",
+                sampleOut: "A>B"
+            },
+
+            {
+                title: "Bài 9 – Hai xe cùng chiều",
+                desc: `Hai chiếc xe xuất phát cùng lúc và chạy cùng chiều trên một con đường.
+
+Xe thứ nhất chạy với vận tốc v1 km/h.
+Xe thứ hai chạy với vận tốc v2 km/h.
+
+Sau t giờ hãy tính khoảng cách giữa hai xe.`,
+                formula: "d = (v1 − v2) × t",
+                input: "v1 v2 t",
+                output: "d",
+                sampleIn: "60 40 2",
+                sampleOut: "40"
+            },
+
+            {
+                title: "Bài 10 – Hai xe ngược chiều",
+                desc: `Hai chiếc xe xuất phát từ cùng một vị trí và chạy theo hai hướng ngược nhau.
+
+Xe thứ nhất có vận tốc v1.
+Xe thứ hai có vận tốc v2.
+
+Sau t giờ hãy tính khoảng cách giữa hai xe.`,
+                formula: "d = (v1 + v2) × t",
+                input: "v1 v2 t",
+                output: "d",
+                sampleIn: "40 60 2",
+                sampleOut: "200"
+            },
+
+            {
+                title: "Bài 11 – Thời gian gặp nhau",
+                desc: `Hai chiếc xe ở hai điểm khác nhau và cách nhau S kilomet.
+
+Hai xe bắt đầu chạy về phía nhau.
+
+Xe thứ nhất có vận tốc v1 km/h.
+Xe thứ hai có vận tốc v2 km/h.
+
+Hãy tính thời gian để hai xe gặp nhau.`,
+                formula: "t = S / (v1 + v2)",
+                input: "S v1 v2",
+                output: "t",
+                sampleIn: "120 40 20",
+                sampleOut: "2"
+            },
+
+            {
+                title: "Bài 12 – Quãng đường còn lại",
+                desc: `Một chiếc xe cần đi tổng quãng đường S kilomet.
+
+Sau khi chạy với vận tốc v trong t giờ, chiếc xe đã đi được một phần quãng đường.
+
+Hãy tính quãng đường còn lại mà chiếc xe phải đi.`,
+                formula: "S2 = S − v*t",
+                input: "S v t",
+                output: "S2",
+                sampleIn: "100 20 3",
+                sampleOut: "40"
+            },
+
+            {
+                title: "Bài 13 – Tăng vận tốc",
+                desc: `Một chiếc xe đang chạy với vận tốc v km/h.
+
+Sau đó người lái xe tăng thêm a km/h vào vận tốc.
+
+Hãy tính vận tốc mới của chiếc xe.`,
+                formula: "v2 = v + a",
+                input: "v a",
+                output: "v2",
+                sampleIn: "40 10",
+                sampleOut: "50"
+            },
+
+            {
+                title: "Bài 14 – Giảm vận tốc",
+                desc: `Một chiếc xe đang chạy với vận tốc v km/h.
+
+Sau đó người lái xe giảm vận tốc đi a km/h.
+
+Hãy tính vận tốc mới của chiếc xe.`,
+                formula: "v2 = v − a",
+                input: "v a",
+                output: "v2",
+                sampleIn: "40 5",
+                sampleOut: "35"
+            },
+
+            {
+                title: "Bài 15 – Tổng vận tốc",
+                desc: `Có hai phương tiện di chuyển.
+
+Phương tiện thứ nhất có vận tốc v1 km/h.
+Phương tiện thứ hai có vận tốc v2 km/h.
+
+Hãy tính tổng vận tốc của hai phương tiện.`,
+                formula: "v = v1 + v2",
+                input: "v1 v2",
+                output: "v",
+                sampleIn: "20 30",
+                sampleOut: "50"
+            },
+
+            {
+                title: "Bài 16 – Hiệu vận tốc",
+                desc: `Có hai phương tiện di chuyển với vận tốc khác nhau.
+
+Phương tiện thứ nhất có vận tốc v1.
+Phương tiện thứ hai có vận tốc v2.
+
+Hãy tính độ chênh lệch vận tốc giữa hai phương tiện.`,
+                formula: "v = |v1 − v2|",
+                input: "v1 v2",
+                output: "v",
+                sampleIn: "50 20",
+                sampleOut: "30"
+            },
+
+            {
+                title: "Bài 17 – Quãng đường nhiều giờ",
+                desc: `Một chiếc xe chạy liên tục với vận tốc v km/h.
+
+Xe chạy trong t giờ.
+
+Hãy tính tổng quãng đường xe đã đi.`,
+                formula: "S = v × t",
+                input: "v t",
+                output: "S",
+                sampleIn: "15 4",
+                sampleOut: "60"
+            },
 
-    <!-- Bài 2 -->
-    <div class="problem">
-        <h2>Bài 2 – Tính vận tốc</h2>
+            {
+                title: "Bài 18 – Tổng quãng đường nhiều chặng",
+                desc: `Một người đi qua ba chặng đường khác nhau.
 
-        <div class="section">Mô tả</div>
-        <p>Một người đi quãng đường <b>S</b> trong <b>t</b> giờ.</p>
+Chặng thứ nhất dài S1 km.
+Chặng thứ hai dài S2 km.
+Chặng thứ ba dài S3 km.
 
-        <div class="section">Input</div>
-        <pre>S t</pre>
+Hãy tính tổng quãng đường mà người đó đã đi.`,
+                formula: "S = S1 + S2 + S3",
+                input: "S1 S2 S3",
+                output: "S",
+                sampleIn: "10 20 30",
+                sampleOut: "60"
+            },
 
-        <div class="section">Output</div>
-        <pre>v</pre>
+            {
+                title: "Bài 19 – Vận tốc trung bình",
+                desc: `Một chiếc xe đi hai chặng đường.
 
-        <div class="section">Sample Input</div>
-        <pre>10 2</pre>
+Chặng 1:
+đi S1 km trong t1 giờ.
 
-        <div class="section">Sample Output</div>
-        <pre>5</pre>
-    </div>
+Chặng 2:
+đi S2 km trong t2 giờ.
 
+Hãy tính vận tốc trung bình của cả chuyến đi.`,
+                formula: "v = (S1+S2)/(t1+t2)",
+                input: "S1 t1 / S2 t2",
+                output: "v",
+                sampleIn: "20 1 | 30 2",
+                sampleOut: "16.67"
+            },
 
-    <!-- Bài 3 -->
-    <div class="problem">
-        <h2>Bài 3 – Tính thời gian</h2>
+            {
+                title: "Bài 20 – Tổng quãng đường nhiều xe",
+                desc: `Có bốn chiếc xe khác nhau.
 
-        <div class="section">Mô tả</div>
-        <p>Một xe đi quãng đường <b>S</b> với vận tốc <b>v</b>.</p>
+Xe 1 đi được S1 km.
+Xe 2 đi được S2 km.
+Xe 3 đi được S3 km.
+Xe 4 đi được S4 km.
 
-        <div class="section">Input</div>
-        <pre>S v</pre>
+Hãy tính tổng quãng đường mà tất cả các xe đã đi.`,
+                formula: "S = S1 + S2 + S3 + S4",
+                input: "S1 S2 S3 S4",
+                output: "S",
+                sampleIn: "10 20 30 40",
+                sampleOut: "100"
+            }
 
-        <div class="section">Output</div>
-        <pre>t</pre>
+        ];
 
-        <div class="section">Sample Input</div>
-        <pre>90 45</pre>
 
-        <div class="section">Sample Output</div>
-        <pre>2</pre>
-    </div>
+        function createProblems() {
 
+            const container = document.getElementById("container");
 
-    <!-- Bài 4 -->
-    <div class="problem">
-        <h2>Bài 4 – Chạy trong phút</h2>
+            problems.forEach((p, i) => {
 
-        <div class="section">Mô tả</div>
-        <p>Một người chạy với vận tốc <b>v</b> km/h trong <b>m</b> phút.</p>
+                container.innerHTML += `
 
-        <div class="section">Input</div>
-        <pre>v m</pre>
+<div class="problem">
 
-        <div class="section">Output</div>
-        <pre>S</pre>
+<h2 onclick="toggle(this)"> ${p.title} </h2>
 
-        <div class="section">Sample Input</div>
-        <pre>6 30</pre>
+<div class="content">
 
-        <div class="section">Sample Output</div>
-        <pre>3</pre>
-    </div>
+<div class="section">Mô tả</div>
+<p>${p.desc}</p>
 
+<button onclick="showFormula(this)">Hiện công thức</button>
 
-    <!-- Bài 5 -->
-    <div class="problem">
-        <h2>Bài 5 – Hai chặng đường</h2>
+<div class="formula">${p.formula}</div>
 
-        <div class="section">Mô tả</div>
-        <p>Một xe đi hai chặng:</p>
-        <ul>
-            <li>S1 trong t1</li>
-            <li>S2 trong t2</li>
-        </ul>
+<div class="section">Input</div>
+<pre>${p.input}</pre>
 
-        <div class="section">Input</div>
-        <pre>
-S1 t1
-S2 t2
-</pre>
+<div class="section">Output</div>
+<pre>${p.output}</pre>
 
-        <div class="section">Output</div>
-        <pre>
-S_total
-t_total
-v_avg
-</pre>
+<button onclick="showSample(this)">Sample</button>
 
-        <div class="section">Sample Input</div>
-        <pre>
-20 1
-30 2
-</pre>
+<div class="sample">
 
-        <div class="section">Sample Output</div>
-        <pre>
-50
-3
-16.67
-</pre>
-    </div>
+<div class="section">Sample Input</div>
+<pre>${p.sampleIn}</pre>
 
+<div class="section">Sample Output</div>
+<pre>${p.sampleOut}</pre>
 
-    <!-- Bài 6 -->
-    <div class="problem">
-        <h2>Bài 6 – So sánh vận tốc</h2>
+</div>
 
-        <div class="section">Mô tả</div>
-        <p>So sánh vận tốc của hai người.</p>
+</div>
 
-        <div class="section">Input</div>
-        <pre>
-S1 t1
-S2 t2
-</pre>
+</div>
 
-        <div class="section">Output</div>
-        <pre>
-A>B
-B>A
-A=B
-</pre>
+`;
 
-        <div class="section">Sample Input</div>
-        <pre>
-12 2
-15 3
-</pre>
+            });
 
-        <div class="section">Sample Output</div>
-        <pre>A>B</pre>
-    </div>
+        }
 
+        createProblems();
 
-    <!-- Bài 7 -->
-    <div class="problem">
-        <h2>Bài 7 – Tổng thời gian di chuyển</h2>
 
-        <div class="section">Mô tả</div>
-        <p>Một người đi 2 chặng đường.</p>
+        function showFormula(btn) {
 
-        <div class="section">Input</div>
-        <pre>
-S1 v1
-S2 v2
-</pre>
+            const f = btn.nextElementSibling;
 
-        <div class="section">Output</div>
-        <pre>t_total</pre>
+            f.style.display = f.style.display === "block" ? "none" : "block";
 
-        <div class="section">Sample Input</div>
-        <pre>
-2 4
-6 12
-</pre>
+        }
 
-        <div class="section">Sample Output</div>
-        <pre>1</pre>
-    </div>
+        function showSample(btn) {
 
+            const s = btn.nextElementSibling;
 
-    <!-- Bài 8 -->
-    <div class="problem">
-        <h2>Bài 8 – Tính tiền taxi</h2>
+            s.style.display = s.style.display === "block" ? "none" : "block";
 
-        <div class="section">Mô tả</div>
-        <p>Taxi chạy với vận tốc v và giá price mỗi km trong t giờ.</p>
+        }
 
-        <div class="section">Input</div>
-        <pre>v price t</pre>
+        function toggle(title) {
 
-        <div class="section">Output</div>
-        <pre>money</pre>
+            const content = title.nextElementSibling;
 
-        <div class="section">Sample Input</div>
-        <pre>40 12000 0.5</pre>
+            content.style.display = content.style.display === "none" ? "block" : "none";
 
-        <div class="section">Sample Output</div>
-        <pre>240000</pre>
-    </div>
+        }
 
+        function searchProblem() {
 
-    <!-- Bài 9 -->
-    <div class="problem">
-        <h2>Bài 9 – Hai xe ngược chiều</h2>
+            const text = document.getElementById("searchBox").value.toLowerCase();
 
-        <div class="section">Mô tả</div>
-        <p>Hai xe cách nhau S km và đi ngược chiều.</p>
+            const items = document.querySelectorAll(".problem");
 
-        <div class="section">Input</div>
-        <pre>S v1 v2</pre>
+            items.forEach(p => {
 
-        <div class="section">Output</div>
-        <pre>t</pre>
+                p.style.display = p.innerText.toLowerCase().includes(text) ? "block" : "none";
 
-        <div class="section">Sample Input</div>
-        <pre>90 40 50</pre>
+            });
 
-        <div class="section">Sample Output</div>
-        <pre>1</pre>
-    </div>
+        }
 
-
-    <!-- Bài 10 -->
-    <div class="problem">
-        <h2>Bài 10 – Tổng quãng đường</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Một xe đi qua n chặng đường.</p>
-
-        <div class="section">Input</div>
-        <pre>
-n
-S t
-...
-</pre>
-
-        <div class="section">Output</div>
-        <pre>S_total</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>
-4
-10 1
-20 2
-30 1
-40 1
-</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>120</pre>
-    </div>
-
-
-    <!-- Bài 11 -->
-    <div class="problem">
-        <h2>Bài 11 – Người chạy nhanh nhất</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Tìm người có vận tốc lớn nhất.</p>
-
-        <div class="section">Input</div>
-        <pre>
-n
-S t
-...
-</pre>
-
-        <div class="section">Output</div>
-        <pre>index</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>
-3
-10 2
-15 2
-9 1
-</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>3</pre>
-    </div>
-
-
-    <!-- Bài 12 -->
-    <div class="problem">
-        <h2>Bài 12 – Đến sớm hay trễ</h2>
-
-        <div class="section">Mô tả</div>
-        <p>So sánh thời gian đi với thời gian cho phép.</p>
-
-        <div class="section">Input</div>
-        <pre>S v T</pre>
-
-        <div class="section">Output</div>
-        <pre>
-Som
-Tre
-Dung_gio
-</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>60 40 2</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>Som</pre>
-    </div>
-
-
-    <!-- Bài 13 -->
-    <div class="problem">
-        <h2>Bài 13 – Thời gian nhanh nhất</h2>
-
-        <div class="section">Mô tả</div>
-        <p>3 người đi cùng quãng đường S với các vận tốc khác nhau.</p>
-
-        <div class="section">Input</div>
-        <pre>S v1 v2 v3</pre>
-
-        <div class="section">Output</div>
-        <pre>t_min</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>60 5 15 30</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>2</pre>
-    </div>
-
-
-    <!-- Bài 14 -->
-    <div class="problem">
-        <h2>Bài 14 – Tổng thời gian</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Tính tổng thời gian 3 chặng.</p>
-
-        <div class="section">Input</div>
-        <pre>
-S1 v1
-S2 v2
-S3 v3
-</pre>
-
-        <div class="section">Output</div>
-        <pre>t_total</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>
-10 10
-20 20
-15 15
-</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>3</pre>
-    </div>
-
-
-    <!-- Bài 15 -->
-    <div class="problem">
-        <h2>Bài 15 – Quãng đường còn lại</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Một người cần đi tổng S km.</p>
-
-        <div class="section">Input</div>
-        <pre>S v t</pre>
-
-        <div class="section">Output</div>
-        <pre>S_remaining</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>100 20 2</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>60</pre>
-    </div>
-
-
-    <!-- Bài 16 -->
-    <div class="problem">
-        <h2>Bài 16 – Vận tốc trung bình</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Tính vận tốc trung bình của hai chặng.</p>
-
-        <div class="section">Input</div>
-        <pre>
-S1 v1
-S2 v2
-</pre>
-
-        <div class="section">Output</div>
-        <pre>v_avg</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>
-20 10
-30 15
-</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>12</pre>
-    </div>
-
-
-    <!-- Bài 17 -->
-    <div class="problem">
-        <h2>Bài 17 – Xe đến trước</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Hai xe đi cùng quãng đường.</p>
-
-        <div class="section">Input</div>
-        <pre>S v1 v2</pre>
-
-        <div class="section">Output</div>
-        <pre>A/B/Equal</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>100 50 25</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>A</pre>
-    </div>
-
-
-    <!-- Bài 18 -->
-    <div class="problem">
-        <h2>Bài 18 – Tiền xăng</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Mỗi km tốn price tiền xăng.</p>
-
-        <div class="section">Input</div>
-        <pre>S price</pre>
-
-        <div class="section">Output</div>
-        <pre>money</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>50 2000</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>100000</pre>
-    </div>
-
-
-    <!-- Bài 19 -->
-    <div class="problem">
-        <h2>Bài 19 – Thời gian còn lại</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Một người cần đi S km trong T giờ.</p>
-
-        <div class="section">Input</div>
-        <pre>S T s v</pre>
-
-        <div class="section">Output</div>
-        <pre>t_remaining</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>100 5 40 20</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>3</pre>
-    </div>
-
-
-    <!-- Bài 20 -->
-    <div class="problem">
-        <h2>Bài 20 – Vận tốc trung bình toàn bộ chuyến đi</h2>
-
-        <div class="section">Mô tả</div>
-        <p>Một người đi n chặng đường.</p>
-
-        <div class="section">Input</div>
-        <pre>
-n
-S t
-...
-</pre>
-
-        <div class="section">Output</div>
-        <pre>v_avg</pre>
-
-        <div class="section">Sample Input</div>
-        <pre>
-3
-10 1
-20 2
-30 1
-</pre>
-
-        <div class="section">Sample Output</div>
-        <pre>15</pre>
-    </div>
-
+    </script>
 
 </body>
 

@@ -260,9 +260,119 @@
                     <pre>22</pre>
                 </div>
             </div>
+            <div class="problem-card">
+                <h2 class="problem-title">Bài Tập: Mô Phỏng Ngăn Xếp (Basic Stack Simulation)</h2>
+                <div class="limits">
+                    <span>Thời gian chạy: 1.0s</span>
+                    <span>Giới hạn bộ nhớ: 256MB</span>
+                </div>
+
+                <h3>Mô tả bài toán</h3>
+                <p>Ban đầu bạn có một ngăn xếp (Stack) rỗng. Bạn cần xử lý <i>N</i> yêu cầu, mỗi yêu cầu thuộc một trong
+                    3 loại sau:</p>
+                <ol>
+                    <li><code>PUSH x</code>: Thêm số nguyên <i>x</i> vào đỉnh của ngăn xếp.</li>
+                    <li><code>POP</code>: Xóa phần tử ở đỉnh của ngăn xếp. (Lưu ý: Nếu ngăn xếp đang rỗng thì bỏ qua
+                        lệnh này, không làm gì cả).</li>
+                    <li><code>PRINT</code>: In ra phần tử đang nằm ở đỉnh của ngăn xếp. (Lưu ý: Nếu ngăn xếp đang rỗng,
+                        hãy in ra chữ <code>EMPTY</code>).</li>
+                </ol>
+
+                <h3>Input</h3>
+                <ul>
+                    <li>Dòng đầu tiên chứa số nguyên dương <i>N</i> - số lượng yêu cầu.</li>
+                    <li><i>N</i> dòng tiếp theo, mỗi dòng chứa một yêu cầu theo định dạng đã mô tả ở trên.</li>
+                </ul>
+
+                <h3>Output</h3>
+                <ul>
+                    <li>Với mỗi lệnh <code>PRINT</code>, in ra kết quả tương ứng trên một dòng mới.</li>
+                </ul>
+
+                <h3>Giới hạn (Constraints)</h3>
+                <ul>
+                    <li>1 &le; <i>N</i> &le; 10<sup>5</sup>.</li>
+                    <li>Số nguyên <i>x</i> trong lệnh <code>PUSH</code> thỏa mãn: -10<sup>9</sup> &le; <i>x</i> &le;
+                        10<sup>9</sup>.</li>
+                </ul>
+
+                <h3>Ví dụ (Example)</h3>
+
+                <div class="example-box">
+                    <div class="example-half">
+                        <strong>Input:</strong>
+                        <pre>7
+PUSH 5
+PUSH 10
+PRINT
+POP
+PRINT
+POP
+PRINT</pre>
+                    </div>
+                    <div class="example-half">
+                        <strong>Output:</strong>
+                        <pre>10
+5
+EMPTY</pre>
+                    </div>
+                </div>
+                <div class="explanation">
+                    <strong>Giải thích Example:</strong><br>
+                    1. <code>PUSH 5</code>: Stack hiện tại là [5].<br>
+                    2. <code>PUSH 10</code>: Stack hiện tại là [5, 10] (10 ở đỉnh).<br>
+                    3. <code>PRINT</code>: Đỉnh là 10. In ra 10.<br>
+                    4. <code>POP</code>: Xóa đỉnh (10). Stack còn [5].<br>
+                    5. <code>PRINT</code>: Đỉnh là 5. In ra 5.<br>
+                    6. <code>POP</code>: Xóa đỉnh (5). Stack rỗng [].<br>
+                    7. <code>PRINT</code>: Stack rỗng. In ra EMPTY.
+                </div>
+
+                <div class="cheat-sheet">
+                    <h3>💡 Bảng "Phao Cứu Sinh" Cú Pháp Python</h3>
+                    <p>Để làm bài này, bạn chỉ cần dùng đúng cấu trúc dữ liệu mảng (List) trong Python. Dưới đây là cách
+                        ánh xạ ngôn ngữ tự nhiên sang cú pháp Python (giả sử stack của bạn tên là <code>st</code>):</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Thao tác Stack</th>
+                                <th>Cú pháp Python</th>
+                                <th>Giải thích</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Khởi tạo rỗng</strong></td>
+                                <td><code>st = []</code></td>
+                                <td>Tạo một mảng rỗng để làm Stack.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PUSH x</strong></td>
+                                <td><code>st.append(x)</code></td>
+                                <td>Thêm x vào cuối mảng (đóng vai trò là đỉnh Stack).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>POP</strong></td>
+                                <td><code>st.pop()</code></td>
+                                <td>Xóa phần tử cuối mảng.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PRINT (Xem đỉnh)</strong></td>
+                                <td><code>st[-1]</code></td>
+                                <td>Lấy giá trị của phần tử cuối mảng (chỉ số -1 trong Python).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kiểm tra rỗng</strong></td>
+                                <td><code>len(st) == 0</code></td>
+                                <td>Nếu độ dài mảng bằng 0 thì là Stack rỗng.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
 
-    </div>
 
 </body>
 

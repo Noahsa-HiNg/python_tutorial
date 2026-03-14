@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Thi Lập Trình: Queue (Hàng Đợi)</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f5f7;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1.page-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .problem-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .problem-title {
+            color: #2980b9;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .diff-easy {
+            background-color: #2ecc71;
+        }
+
+        .diff-medium {
+            background-color: #f39c12;
+        }
+
+        .diff-hard {
+            background-color: #e74c3c;
+        }
+
+        .limits {
+            background-color: #e8f4fd;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #31708f;
+            margin-bottom: 20px;
+        }
+
+        .limits span {
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+        }
+
+        pre {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.95em;
+        }
+
+        .example-box {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .example-half {
+            flex: 1;
+        }
+
+        .explanation {
+            background-color: #fffbc8;
+            padding: 15px;
+            border-left: 4px solid #f1c40f;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .hint {
+            background-color: #f9e79f;
+            padding: 10px 15px;
+            border-left: 4px solid #f39c12;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 15px;
+        }
+
+        .cheat-sheet {
+            background-color: #e8f5e9;
+            border-left: 4px solid #2ecc71;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        .cheat-sheet h3 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #fff;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+
+        code {
+            background-color: #f1f2f6;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #e74c3c;
+            font-family: "Consolas", "Monaco", monospace;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="page-title">Bộ Đề Luyện Tập: Hàng Đợi (Queue)</h1>
+
+        <div class="problem-card">
+            <h2 class="problem-title">Bài 1: Mô Phỏng Hàng Đợi Cơ Bản</h2>
+            <span class="difficulty diff-easy">Mức độ: Rất Dễ (Học cú pháp)</span>
+            <div class="limits">
+                <span>Thời gian chạy: 1.0s</span>
+                <span>Giới hạn bộ nhớ: 256MB</span>
+            </div>
+
+            <h3>Mô tả bài toán</h3>
+            <p>Bạn cần quản lý một hàng đợi (Queue) các số nguyên, ban đầu trống rỗng. Bạn sẽ nhận được <i>N</i> yêu
+                cầu, mỗi yêu cầu thuộc một trong 3 loại:</p>
+            <ol>
+                <li><code>PUSH x</code>: Thêm số nguyên <i>x</i> vào <strong>cuối</strong> hàng đợi.</li>
+                <li><code>POP</code>: Xóa phần tử ở <strong>đầu</strong> hàng đợi. (Nếu hàng đợi đang rỗng, bỏ qua lệnh
+                    này).</li>
+                <li><code>FRONT</code>: In ra phần tử đang nằm ở <strong>đầu</strong> hàng đợi. (Nếu hàng đợi rỗng, in
+                    ra <code>EMPTY</code>).</li>
+            </ol>
+
+            <h3>Input</h3>
+            <ul>
+                <li>Dòng đầu tiên chứa số nguyên <i>N</i> (1 &le; <i>N</i> &le; 10<sup>5</sup>).</li>
+                <li><i>N</i> dòng tiếp theo, mỗi dòng là một lệnh như mô tả. Số <i>x</i> thỏa mãn -10<sup>9</sup> &le;
+                    <i>x</i> &le; 10<sup>9</sup>.
+                </li>
+            </ul>
+
+            <h3>Output</h3>
+            <ul>
+                <li>In ra kết quả của các lệnh <code>FRONT</code>, mỗi kết quả trên một dòng.</li>
+            </ul>
+
+            <h3>Ví dụ (Example)</h3>
+            <div class="example-box">
+                <div class="example-half">
+                    <strong>Input:</strong>
+                    <pre>6
+PUSH 10
+PUSH 20
+FRONT
+POP
+FRONT
+POP</pre>
+                </div>
+                <div class="example-half">
+                    <strong>Output:</strong>
+                    <pre>10
+20</pre>
+                </div>
+            </div>
+
+            <div class="cheat-sheet">
+                <h3>💡 "Phao Cứu Sinh" Cú Pháp Queue trong Python</h3>
+                <p>Trong Python, không nên dùng List thông thường <code>[]</code> làm Queue vì lệnh <code>pop(0)</code>
+                    chạy rất chậm. Hãy dùng cấu trúc <code>deque</code> (Double-ended queue) từ thư viện chuẩn.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thao tác Queue</th>
+                            <th>Cú pháp Python</th>
+                            <th>Giải thích</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Khai báo thư viện</strong></td>
+                            <td><code>from collections import deque</code></td>
+                            <td>Bắt buộc phải có dòng này ở đầu file code.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Khởi tạo rỗng</strong></td>
+                            <td><code>q = deque()</code></td>
+                            <td>Tạo một hàng đợi rỗng.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PUSH x (Vào cuối)</strong></td>
+                            <td><code>q.append(x)</code></td>
+                            <td>Thêm x vào vị trí cuối cùng của hàng đợi.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POP (Ra đầu)</strong></td>
+                            <td><code>q.popleft()</code></td>
+                            <td>Xóa phần tử ở đầu hàng đợi.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FRONT (Xem đầu)</strong></td>
+                            <td><code>q[0]</code></td>
+                            <td>Xem giá trị phần tử đang chờ ở đầu tiên.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kiểm tra rỗng</strong></td>
+                            <td><code>len(q) == 0</code></td>
+                            <td>Trả về True nếu hàng đợi không có ai.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h2 class="problem-title">Bài 2: Bộ Đếm Lưu Lượng (Recent Ping Counter)</h2>
+            <span class="difficulty diff-easy">Mức độ: Dễ (Ứng dụng thực tế)</span>
+            <div class="limits">
+                <span>Thời gian chạy: 1.0s</span>
+                <span>Giới hạn bộ nhớ: 256MB</span>
+            </div>
+
+            <h3>Mô tả bài toán</h3>
+            <p>Bạn đang viết một hệ thống theo dõi lưu lượng truy cập mạng. Mỗi khi có một thiết bị kết nối, hệ thống sẽ
+                ghi nhận lại thời điểm đó (tính bằng mili-giây).</p>
+            <p>Nhiệm vụ của bạn là đếm xem trong vòng <strong>3000 mili-giây</strong> gần nhất (tính đến thời điểm hiện
+                tại), có bao nhiêu lượt truy cập đã diễn ra.</p>
+            <p>Cụ thể, nếu thời điểm hiện tại là <i>t</i>, bạn cần đếm số lượng các thời điểm nằm trong đoạn [<i>t</i> -
+                3000, <i>t</i>].</p>
+
+            <h3>Input</h3>
+            <ul>
+                <li>Dòng đầu chứa số nguyên <i>N</i> (1 &le; <i>N</i> &le; 10<sup>4</sup>) là số lượng lượt truy cập.
+                </li>
+                <li>Dòng thứ hai chứa <i>N</i> số nguyên tăng dần <i>t<sub>1</sub>, t<sub>2</sub>, ...,
+                        t<sub>N</sub></i> (1 &le; <i>t<sub>i</sub></i> &le; 10<sup>9</sup>), thể hiện thời điểm của từng
+                    lượt truy cập.</li>
+            </ul>
+
+            <h3>Output</h3>
+            <ul>
+                <li>In ra <i>N</i> số nguyên cách nhau bởi khoảng trắng. Số thứ <i>i</i> là số lượng truy cập trong 3000
+                    mili-giây gần nhất tính đến thời điểm <i>t<sub>i</sub></i>.</li>
+            </ul>
+
+            <h3>Ví dụ (Example)</h3>
+            <div class="example-box">
+                <div class="example-half">
+                    <strong>Input:</strong>
+                    <pre>4
+1 100 3001 3002</pre>
+                </div>
+                <div class="example-half">
+                    <strong>Output:</strong>
+                    <pre>1 2 3 3</pre>
+                </div>
+            </div>
+            <div class="hint">
+                <strong>Gợi ý:</strong> Mỗi khi có thời điểm <i>t</i> mới, đẩy nó vào Queue. Sau đó, dùng vòng lặp
+                <code>while</code> để kiểm tra đầu Queue. Nếu phần tử ở đầu &lt; <i>t</i> - 3000, nó đã "quá hạn", hãy
+                <code>popleft()</code> nó đi. Cuối cùng, số lượng phần tử còn lại trong Queue chính là đáp án cho thời
+                điểm đó.
+            </div>
+        </div>
+
+        <div class="problem-card">
+            <h2 class="problem-title">Bài 3: Vòng Tròn Sinh Tồn (Hot Potato)</h2>
+            <span class="difficulty diff-medium">Mức độ: Trung Bình (Thuật toán cơ bản)</span>
+            <div class="limits">
+                <span>Thời gian chạy: 1.0s</span>
+                <span>Giới hạn bộ nhớ: 256MB</span>
+            </div>
+
+            <h3>Mô tả bài toán</h3>
+            <p>Có <i>N</i> người chơi đứng thành một vòng tròn, được đánh số thứ tự từ 1 đến <i>N</i> theo chiều kim
+                đồng hồ. Họ đang chơi một trò chơi sinh tồn:</p>
+            <ol>
+                <li>Bắt đầu từ người số 1, họ truyền tay nhau một quả bom đếm ngược.</li>
+                <li>Cứ mỗi nhịp truyền, quả bom lại đếm lên. Khi đếm đến đúng nhịp thứ <i>K</i>, quả bom sẽ nổ.</li>
+                <li>Người đang cầm bom ở nhịp thứ <i>K</i> sẽ bị loại khỏi vòng tròn.</li>
+                <li>Quả bom mới lập tức được đưa cho người đứng ngay sát bên trái của người vừa bị loại, và họ lại đếm
+                    lại từ 1.</li>
+            </ol>
+            <p>Trò chơi tiếp tục cho đến khi chỉ còn đúng 1 người sống sót. Hãy tìm số thứ tự của người đó.</p>
+
+            <h3>Input</h3>
+            <ul>
+                <li>Một dòng duy nhất chứa hai số nguyên dương <i>N</i> và <i>K</i> (1 &le; <i>N</i>, <i>K</i> &le;
+                    1000).</li>
+            </ul>
+
+            <h3>Output</h3>
+            <ul>
+                <li>In ra một số nguyên duy nhất là thứ tự của người sống sót cuối cùng.</li>
+            </ul>
+
+            <h3>Ví dụ (Example)</h3>
+            <div class="example-box">
+                <div class="example-half">
+                    <strong>Input:</strong>
+                    <pre>5 2</pre>
+                </div>
+                <div class="example-half">
+                    <strong>Output:</strong>
+                    <pre>3</pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <strong>Giải thích Test:</strong> Với N=5, K=2:<br>
+                - Vòng 1: Truyền 1->2. Người số 2 bị loại. Còn [1, 3, 4, 5].<br>
+                - Vòng 2: Truyền 3->4. Người số 4 bị loại. Còn [1, 3, 5].<br>
+                - Vòng 3: Truyền 5->1. Người số 1 bị loại. Còn [3, 5].<br>
+                - Vòng 4: Truyền 3->5. Người số 5 bị loại. Còn [3]. Người số 3 chiến thắng.
+            </div>
+            <div class="hint">
+                <strong>Gợi ý thuật toán:</strong> Khởi tạo Queue chứa các số từ 1 đến <i>N</i>. Lặp lại hành động: Lấy
+                người ở đầu Queue ra và đẩy ngay xuống cuối Queue (mô phỏng việc truyền bom qua tay mà không nổ). Làm
+                vậy <i>K-1</i> lần. Đến lần thứ <i>K</i>, lấy người ở đầu Queue ra và vứt luôn (mô phỏng người đó bị nổ
+                bom loại). Lặp lại quy trình đếm này đến khi độ dài Queue bằng 1.
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>s

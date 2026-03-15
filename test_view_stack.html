@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bộ Đề Luyện Tập: Stack & Queue</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .animated-bg span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite;
+            bottom: -150px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header với hiệu ứng */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1.page-title {
+            font-size: 3.5em;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1.page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Cards */
+        .problem-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .problem-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .problem-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .problem-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .problem-title {
+            font-size: 2.2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-title i {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.2em;
+        }
+
+        /* Limits */
+        .limits {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 0.95em;
+            color: white;
+            margin-bottom: 30px;
+            display: inline-flex;
+            gap: 30px;
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .limits span {
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .limits span i {
+            font-size: 1.1em;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 25px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3 i {
+            color: #667eea;
+        }
+
+        /* Content */
+        p,
+        li {
+            color: #4a5568;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 15px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        pre:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        pre::before {
+            content: '📋';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        pre:hover::before {
+            opacity: 1;
+        }
+
+        /* Example boxes */
+        .example-box {
+            background: #f7fafc;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            display: flex;
+            gap: 20px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .example-box:hover {
+            background: #edf2f7;
+            border-color: #667eea;
+        }
+
+        .example-half {
+            flex: 1;
+        }
+
+        .example-half strong {
+            display: block;
+            margin-bottom: 10px;
+            color: #4a5568;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .example-half pre {
+            margin: 0;
+            background: #2d3748;
+            color: #a0eec0;
+        }
+
+        /* Explanation */
+        .explanation {
+            background: #ebf8ff;
+            border-left: 5px solid #4299e1;
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin: 20px 0;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .explanation strong {
+            color: #2b6cb0;
+            font-size: 1.1em;
+        }
+
+        /* Cheat Sheet */
+        .cheat-sheet {
+            background: linear-gradient(135deg, #8052ec 0%, #d161ff 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            color: white;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 10px 30px rgba(128, 82, 236, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 20px 50px rgba(128, 82, 236, 0.8);
+            }
+        }
+
+        .cheat-sheet h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .cheat-sheet table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .cheat-sheet th {
+            text-align: left;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px 10px 0 0;
+            font-weight: 600;
+        }
+
+        .cheat-sheet td {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .cheat-sheet td:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
+        }
+
+        .cheat-sheet code {
+            background: rgba(0, 0, 0, 0.3);
+            color: #fbbf6e;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        /* Badges */
+        .difficulty-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 15px;
+        }
+
+        .easy {
+            background: #48bb78;
+            color: white;
+        }
+
+        .medium {
+            background: #ecc94b;
+            color: #744210;
+        }
+
+        .hard {
+            background: #f56565;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1.page-title {
+                font-size: 2.5em;
+            }
+
+            .problem-card {
+                padding: 25px;
+            }
+
+            .example-box {
+                flex-direction: column;
+            }
+
+            .limits {
+                flex-direction: column;
+                gap: 10px;
+                border-radius: 20px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        /* Code copy button */
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-bg">
+        <!-- Tạo các phần tử nền động -->
+        <span style="left: 10%; animation-delay: 0s;"></span>
+        <span style="left: 20%; animation-delay: 2s; width: 30px; height: 30px;"></span>
+        <span style="left: 30%; animation-delay: 4s;"></span>
+        <span style="left: 40%; animation-delay: 1s; width: 40px; height: 40px;"></span>
+        <span style="left: 50%; animation-delay: 3s;"></span>
+        <span style="left: 60%; animation-delay: 5s; width: 25px; height: 25px;"></span>
+        <span style="left: 70%; animation-delay: 0.5s;"></span>
+        <span style="left: 80%; animation-delay: 2.5s; width: 35px; height: 35px;"></span>
+        <span style="left: 90%; animation-delay: 1.5s;"></span>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="page-title">
+                <i class="fas fa-code"></i> Stack & Queue
+            </h1>
+            <div class="subtitle">
+                <i class="fas fa-terminal"></i> Luyện tập cấu trúc dữ liệu với Python
+            </div>
+        </div>
+
+        <!-- Bài 1 -->
+        <div class="problem-card">
+            <h2 class="problem-title">
+                <i class="fas fa-layer-group"></i> Bài 1: Xóa Ký Tự Trùng Lặp Kề Nhau
+                <span class="difficulty-badge easy">Dễ</span>
+            </h2>
+            <div class="limits">
+                <span><i class="far fa-clock"></i> Thời gian: 1.0s</span>
+                <span><i class="fas fa-memory"></i> Bộ nhớ: 256MB</span>
+            </div>
+
+            <h3><i class="fas fa-info-circle"></i> Mô tả bài toán</h3>
+            <p>Cho một xâu ký tự <i>S</i> chỉ bao gồm các chữ cái in thường. Một thao tác "xóa trùng lặp" được định
+                nghĩa là việc bạn chọn ra 2 ký tự <strong>giống nhau</strong> và <strong>đứng liền kề nhau</strong>
+                trong xâu, sau đó xóa cả hai ký tự đó đi.</p>
+            <p>Thao tác này sẽ làm cho xâu ngắn lại và có thể tạo ra những cặp ký tự trùng lặp kề nhau mới. Bạn hãy thực
+                hiện thao tác xóa trùng lặp này lặp đi lặp lại cho đến khi không thể thực hiện được nữa.</p>
+            <p>Hãy in ra xâu <i>S</i> cuối cùng sau khi đã xóa hết tất cả các cặp ký tự trùng lặp kề nhau. Dữ liệu đảm
+                bảo kết quả cuối cùng là duy nhất.</p>
+
+            <h3><i class="fas fa-keyboard"></i> Input</h3>
+            <ul>
+                <li>Một dòng duy nhất chứa xâu ký tự <i>S</i>.</li>
+            </ul>
+
+            <h3><i class="fas fa-print"></i> Output</h3>
+            <ul>
+                <li>In ra xâu <i>S</i> sau khi đã thực hiện tối đa các thao tác xóa. Nếu xâu rỗng, in ra một dòng trống.
+                </li>
+            </ul>
+
+            <h3><i class="fas fa-chart-line"></i> Giới hạn</h3>
+            <ul>
+                <li>1 &le; |<i>S</i>| &le; 10<sup>5</sup></li>
+                <li><i>S</i> chỉ chứa các chữ cái tiếng Anh in thường (từ <code>a</code> đến <code>z</code>).</li>
+            </ul>
+
+            <h3><i class="fas fa-flask"></i> Ví dụ</h3>
+
+            <div class="example-box">
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-in-alt"></i> Input 1:</strong>
+                    <pre>abbaca</pre>
+                </div>
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-out-alt"></i> Output 1:</strong>
+                    <pre>ca</pre>
+                </div>
+            </div>
+            <div class="explanation">
+                <strong><i class="fas fa-lightbulb"></i> Giải thích:</strong><br>
+                - Ban đầu S = "abbaca".<br>
+                - Xóa cặp <code>bb</code> → "aaca"<br>
+                - Xóa cặp <code>aa</code> → "ca"<br>
+                - Kết quả: "ca"
+            </div>
+
+            <div class="example-box">
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-in-alt"></i> Input 2:</strong>
+                    <pre>azxxzy</pre>
+                </div>
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-out-alt"></i> Output 2:</strong>
+                    <pre>ay</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bài 2 -->
+        <div class="problem-card">
+            <h2 class="problem-title">
+                <i class="fas fa-calculator"></i> Bài 2: Tính Giá Trị Biểu Thức Hậu Tố
+                <span class="difficulty-badge medium">Trung bình</span>
+            </h2>
+            <div class="limits">
+                <span><i class="far fa-clock"></i> Thời gian: 1.0s</span>
+                <span><i class="fas fa-memory"></i> Bộ nhớ: 256MB</span>
+            </div>
+
+            <h3><i class="fas fa-info-circle"></i> Mô tả bài toán</h3>
+            <p>Biểu thức hậu tố (Reverse Polish Notation - RPN) là một cách viết biểu thức toán học trong đó toán tử nằm
+                sau các toán hạng của nó. Ví dụ, biểu thức trung tố (3 + 4) sẽ được viết thành <code>3 4 +</code> trong
+                dạng hậu tố.</p>
+            <p>Cho một biểu thức hậu tố dưới dạng một mảng các chuỗi (tokens), hãy tính và in ra giá trị của biểu thức
+                này.</p>
+            <strong>Quy tắc:</strong>
+            <ul>
+                <li>Các toán tử hợp lệ bao gồm: <code>+</code> (cộng), <code>-</code> (trừ), <code>*</code> (nhân),
+                    <code>/</code> (chia).
+                </li>
+                <li>Mỗi toán hạng có thể là một số nguyên hoặc là một biểu thức con.</li>
+                <li>Phép chia (<code>/</code>) giữa hai số nguyên phải được <strong>làm tròn về phía 0</strong> (Ví dụ:
+                    13 / 5 = 2, -13 / 5 = -2).</li>
+                <li>Không có phép chia cho 0 trong các test case.</li>
+            </ul>
+
+            <h3><i class="fas fa-keyboard"></i> Input</h3>
+            <ul>
+                <li>Dòng đầu tiên chứa số nguyên dương <i>N</i> - số lượng phần tử (tokens) của biểu thức.</li>
+                <li>Dòng thứ hai chứa <i>N</i> chuỗi, mỗi chuỗi cách nhau bởi một khoảng trắng.</li>
+            </ul>
+
+            <h3><i class="fas fa-print"></i> Output</h3>
+            <ul>
+                <li>In ra một số nguyên duy nhất là kết quả của biểu thức.</li>
+            </ul>
+
+            <h3><i class="fas fa-chart-line"></i> Giới hạn</h3>
+            <ul>
+                <li>1 &le; <i>N</i> &le; 10<sup>4</sup>.</li>
+                <li>Các số nguyên trong biểu thức đầu vào nằm trong khoảng [-200, 200].</li>
+                <li>Kết quả luôn nằm gọn trong kiểu số nguyên 32-bit.</li>
+            </ul>
+
+            <h3><i class="fas fa-flask"></i> Ví dụ</h3>
+
+            <div class="example-box">
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-in-alt"></i> Input 1:</strong>
+                    <pre>4
+2 1 + 3 *</pre>
+                </div>
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-out-alt"></i> Output 1:</strong>
+                    <pre>9</pre>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-in-alt"></i> Input 2:</strong>
+                    <pre>4
+4 13 5 / +</pre>
+                </div>
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-out-alt"></i> Output 2:</strong>
+                    <pre>6</pre>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-in-alt"></i> Input 3:</strong>
+                    <pre>13
+10 6 9 3 + -11 * / * 17 + 5 +</pre>
+                </div>
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-out-alt"></i> Output 3:</strong>
+                    <pre>22</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bài 3 -->
+        <div class="problem-card">
+            <h2 class="problem-title">
+                <i class="fas fa-tasks"></i> Bài 3: Mô Phỏng Ngăn Xếp (Basic Stack Simulation)
+                <span class="difficulty-badge easy">Dễ</span>
+            </h2>
+            <div class="limits">
+                <span><i class="far fa-clock"></i> Thời gian: 1.0s</span>
+                <span><i class="fas fa-memory"></i> Bộ nhớ: 256MB</span>
+            </div>
+
+            <h3><i class="fas fa-info-circle"></i> Mô tả bài toán</h3>
+            <p>Ban đầu bạn có một ngăn xếp (Stack) rỗng. Bạn cần xử lý <i>N</i> yêu cầu, mỗi yêu cầu thuộc một trong 3
+                loại sau:</p>
+            <ul>
+                <li><code><i class="fas fa-arrow-up"></i> PUSH x</code>: Thêm số nguyên <i>x</i> vào đỉnh của ngăn xếp.
+                </li>
+                <li><code><i class="fas fa-arrow-down"></i> POP</code>: Xóa phần tử ở đỉnh của ngăn xếp. (Nếu ngăn xếp
+                    rỗng thì bỏ qua)</li>
+                <li><code><i class="fas fa-eye"></i> PRINT</code>: In ra phần tử đang nằm ở đỉnh của ngăn xếp. (Nếu
+                    rỗng, in <code>EMPTY</code>)</li>
+            </ul>
+
+            <h3><i class="fas fa-keyboard"></i> Input</h3>
+            <ul>
+                <li>Dòng đầu tiên chứa số nguyên dương <i>N</i> - số lượng yêu cầu.</li>
+                <li><i>N</i> dòng tiếp theo, mỗi dòng chứa một yêu cầu.</li>
+            </ul>
+
+            <h3><i class="fas fa-print"></i> Output</h3>
+            <ul>
+                <li>Với mỗi lệnh <code>PRINT</code>, in ra kết quả tương ứng trên một dòng mới.</li>
+            </ul>
+
+            <h3><i class="fas fa-chart-line"></i> Giới hạn</h3>
+            <ul>
+                <li>1 &le; <i>N</i> &le; 10<sup>5</sup>.</li>
+                <li>-10<sup>9</sup> &le; <i>x</i> &le; 10<sup>9</sup>.</li>
+            </ul>
+
+            <h3><i class="fas fa-flask"></i> Ví dụ</h3>
+
+            <div class="example-box">
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-in-alt"></i> Input:</strong>
+                    <pre>7
+PUSH 5
+PUSH 10
+PRINT
+POP
+PRINT
+POP
+PRINT</pre>
+                </div>
+                <div class="example-half">
+                    <strong><i class="fas fa-sign-out-alt"></i> Output:</strong>
+                    <pre>10
+5
+EMPTY</pre>
+                </div>
+            </div>
+
+            <div class="cheat-sheet">
+                <h3><i class="fas fa-graduation-cap"></i> 📚 "Phao Cứu Sinh" Cú Pháp Python</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Thao tác Stack</th>
+                            <th>Cú pháp Python</th>
+                            <th>Giải thích</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Khởi tạo rỗng</strong></td>
+                            <td><code>st = []</code></td>
+                            <td>Tạo một mảng rỗng để làm Stack</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PUSH x</strong></td>
+                            <td><code>st.append(x)</code></td>
+                            <td>Thêm x vào cuối mảng (đỉnh Stack)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POP</strong></td>
+                            <td><code>st.pop()</code></td>
+                            <td>Xóa phần tử cuối mảng</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PRINT (Xem đỉnh)</strong></td>
+                            <td><code>st[-1]</code></td>
+                            <td>Lấy giá trị phần tử cuối mảng</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kiểm tra rỗng</strong></td>
+                            <td><code>len(st) == 0</code></td>
+                            <td>Kiểm tra stack có rỗng không</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Thêm chức năng copy cho code blocks
+        document.querySelectorAll('pre').forEach(pre => {
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
+
+            copyBtn.onclick = async () => {
+                const code = pre.innerText;
+                await navigator.clipboard.writeText(code);
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="far fa-copy"></i> Copy';
+                }, 2000);
+            };
+
+            pre.style.position = 'relative';
+            pre.appendChild(copyBtn);
+        });
+
+        // Animation cho scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

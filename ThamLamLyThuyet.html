@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thuật Toán Tham Lam (Greedy Algorithm)</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #27ae60;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #bdc3c7;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+        }
+
+        .highlight-box {
+            background-color: #e8f8f5;
+            border-left: 5px solid var(--secondary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        pre {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.95rem;
+        }
+
+        code {
+            font-family: 'Consolas', monospace;
+        }
+
+        .keyword {
+            color: #c678dd;
+        }
+
+        .string {
+            color: #98c379;
+        }
+
+        .comment {
+            color: #7f848e;
+            font-style: italic;
+        }
+
+        .function {
+            color: #61afef;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Thuật Toán Tham Lam</h1>
+        <p class="subtitle">Lựa chọn tốt nhất ở hiện tại, hy vọng vào một tương lai hoàn hảo.</p>
+    </header>
+
+    <div class="container">
+        <h2>1. Triết Lý Cốt Lõi</h2>
+        <p>Thuật toán tham lam (Greedy Algorithm) giải quyết bài toán bằng cách chia nó thành nhiều bước nhỏ. Tại mỗi
+            bước, thuật toán sẽ thực hiện một đánh giá và chọn ra phương án <strong>trông có vẻ tốt nhất ngay tại thời
+                điểm đó</strong> mà không cần quan tâm đến hậu quả trong tương lai.</p>
+
+        <div class="highlight-box">
+            <strong>Nguyên tắc 3 KHÔNG của Tham lam:</strong>
+            <ul>
+                <li>Không xét toàn bộ các khả năng (như Vét cạn).</li>
+                <li>Không nhìn về tương lai (như Quy hoạch động).</li>
+                <li>Không bao giờ rút lại quyết định đã chọn.</li>
+            </ul>
+        </div>
+
+        <h2>2. Khi nào Tham lam thất bại?</h2>
+        <p>Tham lam thường thất bại khi sự lựa chọn tốt nhất hiện tại lại dẫn đến một ngõ cụt hoặc tước đi một lợi ích
+            khổng lồ ở phía sau. Ví dụ: Bài toán tìm đường đi ngắn nhất mà đồ thị có trọng số âm, hoặc Bài toán cái túi
+            (Knapsack) dạng 0/1 (chỉ được lấy nguyên đồ vật hoặc không lấy).</p>
+
+        <h2>3. Ví dụ Kinh Điển: Bài Toán Chọn Hoạt Động (Activity Selection)</h2>
+        <p><strong>Đề bài:</strong> Bạn có một hội trường và một danh sách <em>n</em> sự kiện muốn thuê hội trường đó.
+            Mỗi sự kiện có thời gian bắt đầu <code>start</code> và kết thúc <code>end</code>. Hai sự kiện không thể diễn
+            ra cùng lúc. Hãy chọn ra số lượng sự kiện lớn nhất có thể được tổ chức.</p>
+
+        <h3>Chiến lược Tham lam:</h3>
+        <p>Làm sao để xếp được nhiều sự kiện nhất? Trực giác mách bảo ta rằng: <em>Sự kiện nào kết thúc càng sớm, ta
+                càng có nhiều thời gian trống để xếp các sự kiện khác vào.</em></p>
+        <p><strong>Bước giải:</strong></p>
+        <ol>
+            <li>Sắp xếp tất cả các sự kiện theo <strong>thời gian kết thúc tăng dần</strong>.</li>
+            <li>Luôn chọn sự kiện đầu tiên trong danh sách đã sắp xếp.</li>
+            <li>Duyệt qua các sự kiện còn lại. Nếu sự kiện đang xét có thời gian bắt đầu lớn hơn hoặc bằng thời gian kết
+                thúc của sự kiện được chọn gần nhất, ta chọn nó.</li>
+        </ol>
+
+        <h3>Cài đặt bằng Python (Độ phức tạp $O(N \log N)$)</h3>
+        <pre>
+<span class="keyword">def</span> <span class="function">max_activities</span>(activities):
+    <span class="comment"># activities là mảng các tuple: (start_time, end_time)</span>
+    <span class="keyword">if not</span> activities:
+        <span class="keyword">return</span> []
+
+    <span class="comment"># Bước 1: Sắp xếp các hoạt động theo thời gian kết thúc (end_time)</span>
+    activities.sort(key=<span class="keyword">lambda</span> x: x[1])
+    
+    selected_activities = [activities[0]]
+    last_end_time = activities[0][1]
+    
+    <span class="comment"># Bước 2 & 3: Duyệt và chọn tham lam</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(1, len(activities)):
+        start_time, end_time = activities[i]
+        
+        <span class="comment"># Nếu sự kiện này bắt đầu sau khi sự kiện trước đó đã xong</span>
+        <span class="keyword">if</span> start_time >= last_end_time:
+            selected_activities.append(activities[i])
+            last_end_time = end_time  <span class="comment"># Cập nhật mốc thời gian</span>
+            
+    <span class="keyword">return</span> selected_activities
+
+<span class="comment"># Chạy thử</span>
+danh_sach = [(1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11), (8, 12), (2, 13), (12, 14)]
+ket_qua = max_activities(danh_sach)
+
+print(<span class="string">f"Số sự kiện tối đa có thể chọn: {len(ket_qua)}"</span>)
+print(<span class="string">f"Chi tiết các sự kiện (start, end): {ket_qua}"</span>)
+</pre>
+    </div>
+
+    <footer>
+        <p>Tài liệu ôn tập thuật toán cơ bản &copy; 2026</p>
+    </footer>
+
+</body>
+
+</html>
